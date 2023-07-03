@@ -1,0 +1,39 @@
+// Date 2 July
+class Solution {
+public:
+    int maximumRequests(int n, vector<vector<int>>& requests) {
+        int maxRequests = 0;
+        int numRequests = requests.size();
+        
+        // Iterate through all possible subsets of requests
+        for (int mask = 0; mask < (1 << numRequests); mask++) {
+            vector<int> buildings(n, 0);
+            int count = 0;
+            
+            // Check if the current subset is valid
+            for (int i = 0; i < numRequests; i++) {
+                if (mask & (1 << i)) {
+                    count++;
+                    buildings[requests[i][0]]--;
+                    buildings[requests[i][1]]++;
+                }
+            }
+            
+            // Check if all buildings have net change equal to zero
+            bool valid = true;
+            for (int i = 0; i < n; i++) {
+                if (buildings[i] != 0) {
+                    valid = false;
+                    break;
+                }
+            }
+            
+            // Update the maximum number of achievable requests
+            if (valid) {
+                maxRequests = max(maxRequests, count);
+            }
+        }
+        
+        return maxRequests;
+    }
+};
