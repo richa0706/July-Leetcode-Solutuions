@@ -1,0 +1,18 @@
+//july 4 - 2023
+
+class Solution {
+public:
+    int singleNumber(vector<int>& nums) {
+       unordered_map<int, int> count;
+
+       for(int i: nums){
+           count[i]++;
+       }
+       for(auto iteration : count){
+           if(iteration.second == 1){
+               return iteration.first;
+           }
+       }
+       return -1;
+    }
+};
