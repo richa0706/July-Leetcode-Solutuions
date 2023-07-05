@@ -1,0 +1,36 @@
+//5 july 2023
+
+#include <vector>
+
+class Solution {
+public:
+    int longestSubarray(std::vector<int>& nums) {
+        int n = nums.size();
+        int maxLength = 0;
+        int currLength = 0;
+        int prevLength = 0;
+        bool hasZero = false;
+
+        for (int i = 0; i < n; i++) {
+            if (nums[i] == 1) {
+                currLength++;
+            } else {
+                if (hasZero) {
+                    maxLength = std::max(maxLength, currLength + prevLength);
+                    prevLength = currLength;
+                    currLength = 0;
+                } else {
+                    hasZero = true;
+                    prevLength = currLength;
+                    currLength = 0;
+                }
+            }
+        }
+
+        if (!hasZero) {
+            return maxLength - 1;
+        }
+
+        return std::max(maxLength, currLength + prevLength);
+    }
+};
