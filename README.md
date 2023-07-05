@@ -1,1 +1,1 @@
-# July-Leetcode-Solutuions
+# July-Leetcode-Solutions
